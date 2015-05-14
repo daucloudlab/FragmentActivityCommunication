@@ -11,7 +11,10 @@ import android.view.View;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements Fragment2.onSomeEventListener {
+
+
+
     Fragment fragment2 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +24,7 @@ public class MainActivity extends ActionBarActivity {
 
         FragmentManager fm = getFragmentManager() ;
         FragmentTransaction fTrans = fm.beginTransaction() ;
-        fragment2 = (Fragment)fm.findFragmentById(R.id.fragment2Container) ;
+        fragment2 = (Fragment2)fm.findFragmentById(R.id.fragment2Container) ;
         if(fragment2 == null){
             fragment2 = new Fragment2() ;
         }
@@ -64,5 +67,11 @@ public class MainActivity extends ActionBarActivity {
             ((TextView) fragment2.getView().findViewById(R.id.textView))
                     .setText("Access to Fragment 2 from Activity");
         }
+
+    @Override
+    public void someEvent(String s) {
+        Fragment fragment1 = getFragmentManager().findFragmentById(R.id.fragment1) ;
+        ((TextView)fragment1.getView().findViewById(R.id.textView)).setText("Text from fragment2: " + s);
     }
+}
 
